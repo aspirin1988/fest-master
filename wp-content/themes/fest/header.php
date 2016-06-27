@@ -11,25 +11,28 @@ $user_gr=get_user_gr($current_user->ID);
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><?php bloginfo('title'); ?></title>
+	<?php wp_head(); ?>
 	<link rel="shortcut icon" href="<?php the_field('Logo') ?>" type="image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/public/fonts/triod.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/public/css/my.css">
+	<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/public/css/font-awesome.min.css">
+
 	<script src="<?php bloginfo('template_directory');?>/public/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php bloginfo('template_directory');?>/public/js/bootstrap.min.js"></script>
-	<meta property="vk:app_id" content="4296087">
-	<script type="text/javascript" src="http://fest-dss.kz/wp-includes/js/jquery/jquery.js?ver=1.11.3"></script>
-	<script type="text/javascript" src="http://fest-dss.kz/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1"></script>
-	<script type="text/javascript">
-		/* <![CDATA[ */
-		var vkapi = {"wpurl":"http:\/\/fest-dss.kz"};
-		/* ]]> */
-	</script>
-	<script type="text/javascript" src="http://fest-dss.kz/wp-content/plugins/vkontakte-api/js/callback.js?ver=4.4.2"></script>
-	<script type="text/javascript" src="http://fest-dss.kz/wp-content/plugins/vkontakte-api/js/callback.js?ver=4.4.2"></script>
+	<script type="text/javascript" src="/wp-includes/js/jquery/jquery.js?ver=1.11.3"></script>
+	<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1"></script>
 	<script type="text/javascript" src="<?php bloginfo('template_directory');?>/public/js/main.js"></script>
 	<meta name="robots" content="noindex,follow">
+	<style>
+		html { margin-top: 0 !important; }
+		* html body { margin-top: 0 !important; }
+		@media screen and ( max-width: 782px ) {
+			html { margin-top: 0 !important; }
+			* html body { margin-top: 0 !important; }
+		}
+	</style>
 </head>
 <body class="ort-font">
 	<header >
@@ -75,8 +78,7 @@ $user_gr=get_user_gr($current_user->ID);
 					<?php }} ?>
 
 				</ul>
-							<?php if (!$current_user->user_login) {
-							?>
+							<?php if (!$current_user->user_login) {	?>
 								<ul class="nav navbar-nav navbar-right">
 									<a href="#" class="auth" data-target="#auth-modal" data-toggle="modal">
 										<?php echo get_avatar( $current_user->user_ID);?>
@@ -90,12 +92,12 @@ $user_gr=get_user_gr($current_user->ID);
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown user-button">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<?php echo get_avatar( $current_user->user_ID); echo	$current_user->display_name; if($user_gr->id){echo '['.$user_gr->name.']';} ?>
+								<?php echo get_avatar( $current_user->ID); echo	' '.$current_user->display_name; if($user_gr->id){/*echo '['.$user_gr->name.']';*/} ?>
 							 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/wp-admin">Профиль</a></li>
 							<li><a href="#" class="reg" data-target="#reg-group" data-toggle="modal">Регистрация команды</a></li>
-							<li><a href="#" id="gr" class="reg" data-target="#select-group" data-toggle="modal">Выбор группы</a></li>
+							<!--<li><a href="#" id="gr" class="reg" data-target="#select-group" data-toggle="modal">Выбор группы</a></li>-->
 							<li><a href="<?php echo wp_logout_url( '/' );?>">Выход</a></li>
 						</ul>
 					</li>

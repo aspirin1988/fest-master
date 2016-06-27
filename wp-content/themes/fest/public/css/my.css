@@ -38,6 +38,15 @@
     width: 100%
 }
 
+.logo{
+    text-align: center;
+}
+
+.logo img{
+    max-width: 100%;
+}
+
+
 .top-slider .item>.carousel-caption{
     font-family: 'TriodPostnaja';
     text-shadow: 0 0 5px #0f0f0f, 0 0 10px #0f0f0f, 0 0 15px #0f0f0f ;
@@ -54,11 +63,11 @@
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff ;
 }
 .user-button img{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    border-radius: 5%;
     object-fit: cover;
-    margin-top: -10px;
+    margin-top: -16px;
     margin-bottom: -14px;
 }
 .top-block{
@@ -133,16 +142,18 @@ body>.container{
 }
 
 .footer{
-    min-height: 150px;
+
     background: #5e5e5e;
-    padding-top: 30px;
+    padding-top: 60px;
 }
 
 .authors{
     text-align: right;
     color: #fff;
+    font-size: 10px;
+    line-height: 50%;
+    display: block;
 }
-
 
 .footer>.container ul li{
     list-style: none;
@@ -196,7 +207,8 @@ body>.container{
     border: 1px solid #ddd;
     border-radius: 0 0  5px 5px;
     border-top-width: 0;
-    padding: 20px
+    padding: 20px;
+    overflow: hidden;
 }
 
 .articles-container>.article{
@@ -329,18 +341,179 @@ margin-bottom: 10px;
     font-size: 130%;
 }
 
-.event {
-    width: 82%;
+.event ul{
+    /*min-height: 200px;*/
+    display: block;
+    list-style: none;
+    padding: 0;
+}
+
+.saint-href{
+    height: 100%;
     position: absolute;
-    left: 96px;
-    top: 34px;
+    right: 0;
+    left: auto;
+    line-height: auto;
+    background: #F1F1F1;
+    top: 0;
+    border-left: 1px solid #dedede;
+    padding: 12px 15px;
+}
+
+.saint-href:hover{
+    background: #337ab7;
+    color: #ffffff
+}
+
+.saint-name{
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+
+.placeholder-style{
+    color: #3973AF;
+    font-size: 13px;
+}
+
+.event li{
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    height: auto;
+    margin: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+    position: relative;
+    padding: 0 40px 0 0;
 }
 
 .event li:hover {
-    background: cadetblue;
+    background: #F1F1F1;
+}
+
+.c-modal {
+    min-height: 400px;
+    padding-bottom: 50px;
+    transition: all 500ms;
+}
+
+.c-modal .modal-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+
+.c-modal .input-container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.c-modal .input-group span{
+    padding: 0 12px;
+    min-width: 50px;
+}
+
+.c-modal .input-description {
+    font-size: 11px;
+}
+
+.c-modal .inf-label{
+    background: #dddddd;
+    margin: 0 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alignright{
+    margin-left: 10px;
+    float: right;
+}
+
+.alignleft{
+    margin-right: 10px;
+    float: left;
+}
+
+.nostyle{
+    list-style: none;
+    display: inline-block;
+}
+
+.article .row figure{
+    width: 100% !important;
+    height: auto !important;
+
+}
+
+.article .row figure>figcaption{
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+.article .row img{
+    width: 100%  !important;
+    height: auto  !important;
+}
+
+.videoframe iframe{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top:0;
+}
+
+.videoframe{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.videoframe:before{
+    padding-top: 60%;
+    content: "";
+    display: block;
+}
+
+.command-carousel .carousel-inner{
+    min-height:600px;
 }
 
 
+.command-carousel .carousel-inner {
+    height: 100%;
+    transition: all 200ms;
+}
+
+#vk_groups, #vk_groups iframe {
+    width: 100% !important;
+}
+
+.btn-register{
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    max-width: 100%;
+    background-color: rgba(92, 184, 92, 0.45);
+    z-index: 10;
+}
+
+.dropdown-menu {
+    min-width: 100%;
+    border-radius: 0;
+}
+
+.dropdown-menu li{
+    min-width: 100%;
+}
+
+.dropdown-menu li>a{
+    min-width: 100%;
+    padding: 10px 30px 10px 17px;
+}
 
 
 /* медиазапросы */
@@ -367,5 +540,66 @@ margin-bottom: 10px;
         object-fit: cover;
         height: 100%;
         width:100%;
+    }
+}
+
+
+/*preloader*/
+
+.loader:before,
+.loader:after,
+.loader {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: #5cb85c;
+    font-size: 10px;
+    margin: 80px auto;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+.loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.loader:after {
+    left: 3.5em;
+}
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+@-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
     }
 }

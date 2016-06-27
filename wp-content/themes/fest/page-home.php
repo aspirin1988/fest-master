@@ -9,14 +9,20 @@ get_currentuserinfo();
 ?>
     <div id="carousel-top-generic" class="top-block carousel slide top-slider" data-ride="carousel">
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        <!--<ol class="carousel-indicators">
             <li data-target="#carousel-top-generic" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-top-generic" data-slide-to="1"></li>
             <li data-target="#carousel-top-generic" data-slide-to="2"></li>
             <li data-target="#carousel-top-generic" data-slide-to="3"></li>
-        </ol>
+        </ol> todo сделать вывод маркеров по количеству слайдов-->
+
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
+        <?php if ($current_user->data->ID) {?>
+        <button data-target="#reg-group" data-toggle="modal" class="btn btn-success btn-lg btn-register">Регистрация команды</button>
+    <?php }else{ ?>
+        <button data-target="#auth-modal" data-toggle="modal" class="btn btn-success btn-lg btn-register">Регистрация команды</button>
+    <?php } ?>
         <?php $res=get_gall('main'); /*print_r($res);*/ $active="active"; foreach($res as $key=>$val)
         { ?>
             <div class="item <?=$active?>">
@@ -28,9 +34,9 @@ get_currentuserinfo();
             </div>
             <?php $active=''; } ?>
     </div>
-        <div class="top-logo">
-            <img src="<?php bloginfo('template_directory');?>/public/img/Logo.png" alt="logo">
-        </div>
+        <!--<div class="top-logo animated fadeInDown">
+            <img src="<?php /*bloginfo('template_directory');*/?>/public/img/Logo.png" alt="logo">
+        </div>-->
         <!-- Controls -->
         <a class="left carousel-control" href="#carousel-top-generic" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -85,17 +91,29 @@ $new_menu=	rem($menu,$item);
 //print_r($new_menu);
 ?>
     <div class="container ort-font">
-
-    <div class="jumbotron ort-font">
-        <h1><?php the_field('Fest-theme');?></h1>
-        <p><?php the_field('Label-fest');?></p>
-        <p>
-            <a class="btn btn-primary btn-lg " href="/index.php/2016/03/24/polojenie/" role="button">Положение</a>
-            <?php if ($current_user->data->ID) {?>
-            <a class="btn btn-success btn-lg " data-target="#reg-group" data-toggle="modal">Регистрация команды</a>
-            <?php }?>
-        </p>
-    </div>
+        <div class="row logo">
+            <div class="col-sm-3">
+                <img src="<?php bloginfo('template_directory');?>/public/img/Logo.png" alt="logo">
+            </div>
+            <div class="col-sm-9">
+                <h3>
+                    «Я есмь лоза, а вы ветви...» (Иоан.15:5)
+                </h3>
+                <p style="text-align: justify;">
+                    Символ Фестиваля - белый флаг с иконой «Христос Лоза истинная». Именование Христа Лозой основано на евангельских словах: «Я есмь истинная виноградная лоза, а Отец Мой – виноградарь» (Иоан.15:1), «Я есмь лоза, а вы ветви...» (Иоан.15:5). На иконе изображен Христос Вседержитель, окруженный лозой, в ветвях которой изображены дети-мученики: Вера, Надежда, Любовь и дети святого Царственного семейства – княгини Ольга, Татьяна, Мария, Анастасия и цесаревич Алексей.
+                </p>
+            </div>
+        </div>
+        <div class="jumbotron ort-font">
+            <h1><?php the_field('Fest-theme');?></h1>
+            <p><?php the_field('Label-fest');?></p>
+            <p>
+                <a class="btn btn-primary btn-lg " href="/index.php/2016/03/24/polojenie/" role="button">Положение</a>
+                <?php if ($current_user->data->ID) {?>
+                <a class="btn btn-success btn-lg " data-target="#reg-group" data-toggle="modal">Регистрация команды</a>
+                <?php }?>
+            </p>
+        </div>
     <div style="margin-bottom: 20px;" class="ort-font">
         <h2><?php the_field('regulations_title');?></h2>
         <p style="text-align: justify"><?php the_field('regulations_text');?></p>
@@ -182,7 +200,7 @@ wp_reset_postdata();
     </div>
     </div>
     <div class="map">
-        <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=9xhfaNoKpgXi1cE4pDo5w2cWLjg4k43b&width=100%&height=500&lang=ru_RU&sourceType=constructor"></script>
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=DfJYAsr-e-CK3o73Wp4uZeaTFLsTAGy7&width=100%&height=50vh&lang=ru_RU&sourceType=constructor&scroll=true"></script>
     </div>
 
 <?php get_footer(); ?>

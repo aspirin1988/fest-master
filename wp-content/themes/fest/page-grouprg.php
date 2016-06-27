@@ -12,9 +12,10 @@ if (isset($_POST['add_direct'])) {
 
 if (isset($_POST['add_group']))
 {
-    $subjects='';
-    if ($_POST['subjects_type']==1)
+    $subjects=0;
+    if (!$_POST['subjects_1']==0)
     {
+        $_POST['subjects_type'] = 1;
         $subjects=$_POST['subjects_1'];
     }
     else

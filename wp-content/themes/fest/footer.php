@@ -22,14 +22,19 @@
                                     <input type="password" name="pwd" class="form-control" placeholder="Пароль">
                                 </div>
                                 <p>Или войдите через:</p>
-                                <div  id="vkapi_login_button" onclick="VK.Auth.login(onSignon)"  class=" vkapi_vk_login btn btn-primary vk"><img src="<?php bloginfo('template_directory');?>/public/img/vk.svg" alt=""></div>
-                                <button  class="btn btn-default g"><img src="<?php bloginfo('template_directory');?>/public/img/g+.svg" alt=""></button>
+                                <script src="//vk.com/js/api/openapi.js"></script>
+                                <div id="vkapi_login_button" onclick="VK.Auth.login(authLogin)" style="width: 124px;"><table cellspacing="0" cellpadding="0" id="openapi_UI_0" onmouseover="VK.UI._change(1, 0);" onmouseout="VK.UI._change(0, 0);" onmousedown="VK.UI._change(2, 0);" onmouseup="VK.UI._change(1, 0);" style="cursor: pointer; border: 0px; font-family: tahoma, arial, verdana, sans-serif, Lucida Sans; font-size: 10px;"><tbody><tr style="vertical-align: middle"><td><div style="border: 1px solid #3b6798;border-radius: 2px 0px 0px 2px;-moz-border-radius: 2px 0px 0px 2px;-webkit-border-radius: 2px 0px 0px 2px;"><div style="border-width: 1px; border-style: solid; border-color: rgb(126, 156, 188) rgb(92, 130, 171) rgb(92, 130, 171); color: rgb(255, 255, 255); text-shadow: rgb(69, 104, 142) 0px 1px; height: 15px; padding: 2px 4px 0px 6px; line-height: 13px; background-color: rgb(109, 141, 177);">Войти</div></div></td><td><div style="background: url(https://vk.com/images/btns.png) 0px -42px no-repeat; width: 21px; height: 21px"></div></td><td><div style="border: 1px solid rgb(59, 103, 152); border-radius: 0px 2px 2px 0px; background-position: 0px -42px;"><div style="border-width: 1px; border-style: solid; border-color: rgb(126, 156, 188) rgb(92, 130, 171) rgb(92, 130, 171); color: rgb(255, 255, 255); text-shadow: rgb(69, 104, 142) 0px 1px; height: 15px; padding: 2px 6px 0px 4px; line-height: 13px; background-color: rgb(109, 141, 177);">Контакте</div></div></td></tr></tbody></table>
+                                </div>
+                                <div  id="vkapi_login_button" onclick="VK.Auth.login(onSignon)"  class=" vkapi_vk_login btn btn-primary vk">
+                                <div style="display: none" ><?php $post=get_post(45); setup_postdata($post); the_content(); wp_reset_query(); ?></div>
+<!--                                <img src="--><?php //bloginfo('template_directory');?><!--/public/img/vk.svg" alt="">--></div>
+                                <!--<button  class="btn btn-default g"><img src="<?php /*bloginfo('template_directory');*/?>/public/img/g+.svg" alt=""></button>-->
                             </form>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" onclick="">Вход</button>
-                            <button type="button" class="btn btn-default" data-target="#auth-carousel" data-slide-to="1">Зарегистрироваться</button>
+                            <button onclick="VK.Auth.login(onSignon)" type="button" class="btn btn-default" data-target="#aчuth-carousel" data-slide-to="1">Зарегистрироваться</button>
                         </div>
 
                     </div>
@@ -39,7 +44,6 @@
 
                 <div class="item">
                     <div class="modal-content">
-
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Регистрация - шаг 1</h4>
@@ -119,7 +123,6 @@
 
                 <div class="item">
                     <div class="modal-content">
-
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Регистрация - шаг 3</h4>
@@ -198,14 +201,14 @@
 <!-- command registration -->
 
 <div id="reg-group" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-md normal-font">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-wrap="false" data-interval="0">
+    <div class="normal-font">
+        <div id="myCarousel" class="carousel slide command-carousel" data-ride="carousel" data-wrap="false" data-interval="0">
             <form action="<?php bloginfo('url'); ?>/index.php/grouprg" method="post" id="group_add" name="group_add" >
             <div class="carousel-inner">
-
+                <input type="text" hidden class="hidden" name="add_group" value="1dr ge,kbretn">
                 <!--slide 1-->
-                <div class="item active">
-                    <div class="modal-content c-modal">
+                <div class="item animated active">
+                    <div class="modal-content modal-dialog c-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">1. Регистрация команды (Информация о команде)</h4>
@@ -320,8 +323,8 @@
                 </div>
 
                 <!--slide 2-->
-                <div class="item">
-                    <div class="modal-content c-modal">
+                <div class="item animated">
+                    <div class="modal-content  modal-dialog c-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title"><a data-target="#myCarousel" data-slide-to="0" href="#">1</a> / 2. Регистрация команды (Контакты духовника)</h4>
@@ -396,16 +399,9 @@
                     </div>
                 </div>
 
-                <!--
-                 (varchar 32)
-                 (varchar 64)
-                 (text)
-                confessor_contacts (text)
-                advanced_data (text)-->
-
                 <!--slide 3-->
-                <div class="item">
-                    <div class="modal-content c-modal">
+                <div class="item animated">
+                    <div class="modal-content modal-dialog c-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title"><a data-target="#myCarousel" data-slide-to="0" href="#">1</a> / <a data-target="#myCarousel" data-slide-to="1" href="#">2</a> / 3. Регистрация команды (Контакты руководителя)</h4>
@@ -478,8 +474,8 @@
                 </div>
 
                 <!--slide 4-->
-                <div class="item">
-                    <div class="modal-content c-modal">
+                <div class="item animated">
+                    <div class="modal-content modal-dialog c-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title"><a data-target="#myCarousel" data-slide-to="0" href="#">1</a> / <a data-target="#myCarousel" data-slide-to="1" href="#">2</a> / <a data-target="#myCarousel" data-slide-to="2" href="#">3</a> / 4.Регистрация команды (Немного цифер)</h4>
@@ -535,16 +531,16 @@
                         </div>
 
                         <div class="modal-footer">
-                            <a class="btn btn-default right type-them" href="#myCarousel" data-slide="prev">Назад</a>
-                            <a class="btn btn-primary right type-them" href="#myCarousel" data-slide="next">Далее</a>
+                            <a class="btn btn-default right" href="#myCarousel" data-slide="prev">Назад</a>
+                            <a class="btn btn-primary right" href="#myCarousel" data-slide="next">Далее</a>
                         </div>
                     </div>
                 </div>
 
 
                 <!--slide 5-->
-                <div class="item">
-                    <div class="modal-content c-modal">
+                <div class="item animated">
+                    <div class="modal-content modal-dialog c-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title"><a data-target="#myCarousel" data-slide-to="0" href="#">1</a> / <a data-target="#myCarousel" data-slide-to="1" href="#">2</a> / <a data-target="#myCarousel" data-slide-to="2" href="#">3</a> / <a data-target="#myCarousel" data-slide-to="3" href="#">4</a> / 5. Регистрация команды (Выбор тематики)</h4>
@@ -560,7 +556,7 @@
                                             <a href="#agreed" data-toggle="tab">Одобренная</a>
                                         </li>
                                         <li>
-                                            <a href="#optional" data-toggle="tab">Произвольная</a>
+                                            <a href="#optional" id="set-optional" data-toggle="tab">Произвольная</a>
                                         </li>
                                     </ul>
 
@@ -568,10 +564,10 @@
                                      <div class="tab-content">
                                         <div class="tab-pane active"  id="agreed" >
                                             <div class="input-container">
-                                                <label for="g-max-age">Тематика домашнего задания</label>
+                                                <label for="g-them">Тематика домашнего задания</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-ellipsis-h"></i></span>
-                                                    <select title="Тематики" class="form-control" name="subjects_1" id="them">
+                                                    <select title="Тематики" class="form-control" name="subjects_1" id="g-them">
                                                         <option value="1" ></option>
                                                     </select>
                                                 </div>
@@ -582,11 +578,11 @@
 
                                         <div class="tab-pane" id="optional">
                                             <div class="input-container">
-                                                <label for="g-max-age">Произвольная тематика домашнего задания</label>
+                                                <label for="subjects_name">Произвольная тематика домашнего задания</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-ellipsis-h"></i></span>
                                                     <input autocomplete="off" type="text" id="subjects_name"  name="subjects_name_2" class="form-control" placeholder="Начните вводить имя святого" title="">
-                                                    <input type="text" name="subjects_2" id="subjects_2" class="hide">
+                                                    <input hidden type="text" name="subjects_2" id="subjects_2" class="hide">
                                                 </div>
                                                 <div class="event">
                                                     <ul class="s-list " id="find-list">
@@ -606,30 +602,102 @@
 
                         </div>
                         <div class="modal-footer">
-                            <a class="btn btn-default right type-them" href="#myCarousel" data-slide="prev">Назад</a>
-                            <a class="btn btn-primary right type-them" href="#myCarousel" data-slide="next">Далее</a>
+                            <a class="btn right" href="#myCarousel" data-slide="prev">Назад</a>
+                            <a class="btn btn-primary right" href="#myCarousel" data-slide="next">Далее</a>
                         </div>
                     </div>
                 </div>
 
 
-                <!--slide 6 final-->
-                <div class="item">
-                    <div class="modal-content c-modal">
+                <!--slide 6-->
+                <div class="item animated">
+                    <div class="modal-content modal-dialog c-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Регистрация команды (Дополнительная информация)</h4>
+                            <h4 class="modal-title"><a data-target="#myCarousel" data-slide-to="0" href="#">1</a> / <a data-target="#myCarousel" data-slide-to="1" href="#">2</a> / <a data-target="#myCarousel" data-slide-to="2" href="#">3</a> / <a data-target="#myCarousel" data-slide-to="3" href="#">4</a> / <a data-target="#myCarousel" data-slide-to="4" href="#">5</a> / 6. Регистрация команды (Дополнительная информация)</h4>
                         </div>
                         <div class="modal-body">
-
-
+                            <h4 class="text-center">Еще немного и все!</h4>
+                            <div class="row"> 
+                                <div class="col-md-12">
+                                    <div class="input-container">
+                                        <label for="g-advanced-data">Дополнительная информация</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-external-link"></i></span>
+                                            <textarea rows="7" id="g-advanced-data" type="text" name="advanced_data" class="form-control" placeholder="Дополнительная информация" title="дополнительная информация"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-justify">Напишите то, что Вы считаете нужно знать организаторам о команде, например нужно ли будет для Вас подготовить палатки или когда Вас лучше встретить, а может быть есть что-то еще не менне важное для Вашей команды, мы обязательно учтем Ваши пожеания. Не стесняйтесь, количество текста не ограничено, можно писать подробно!</p>
 
                         </div>
 
                         <div style="font-size: 20px;" class="label label-warning" id="mess" ></div>
                         <div class="modal-footer">
-                                <a class="btn btn-danger left" href="#myCarousel" data-slide="prev">Назад</a>
-                                <div type="submit"  id="add_group" class="btn btn-primary">Создать</div>
+                            <a class="btn btn-danger left" href="#myCarousel" data-slide="prev">Назад</a>
+                            <a class="btn btn-primary right type-check" href="#myCarousel" data-slide="next">Далее</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--slide 7-->
+                <div class="item animated">
+                    <div class="modal-content modal-lg modal-dialog c-modal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title"><a data-target="#myCarousel" data-slide-to="0" href="#">1</a> / <a data-target="#myCarousel" data-slide-to="1" href="#">2</a> / <a data-target="#myCarousel" data-slide-to="2" href="#">3</a> / <a data-target="#myCarousel" data-slide-to="3" href="#">4</a> / <a data-target="#myCarousel" data-slide-to="4" href="#">5</a> / <a data-target="#myCarousel" data-slide-to="5" href="#">6</a> / 7. Регистрация команды (Проверка информации)</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="text-center">Ура! Мы почти закончили, осталось совсем чуть-чуть!</h4>
+                            <p>Проверьте внимательно форму на наличие ошибок. Если Вы нашли ошибку - Вы еще можете ее исправить. После нажатия кнопки "зарегистрировать", изменения в зарегистрированную команду можно будет внести только связавшись с организаторами Фестиваля.</p>
+                            <div class="row">
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-bordered" id="table-check">
+                                        <tr>
+                                            <td>sad</td>
+                                            <td>asd</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 20px;" class="label label-warning" id="mess" ></div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger left" href="#myCarousel" data-slide="prev">Назад</a>
+                            <div id="add_group" class="btn btn-primary" href="#myCarousel" data-slide="next">Создать</div>
+                        </div>
+                    </div>
+                </div>
+ 
+                <!--slide 8-->
+                <div class="item animated">
+                    <div class="modal-content modal-dialog c-modal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Завершение регистрации</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="hidden command-registration-preloader  animated slideOutDown text-center" style="text-align: center">
+                                <h4 class="center">Осталось несколько секунд!</h4>
+                                <div class="loader">Loading...</div>
+                                <p>Мы проверяем введенные данные и регистрируем команду.</p>
+                            </div>
+                            <div class="hidden command-registration-success animated slideInDown text-center">
+                                <h4 class="center">Поздравляем с успешной регистрацией!</h4>
+                                <p style="text-align: justify;">Дорогие друзья, соревноваться, победить, показать себя – это хорошие мотивы для активности наших детей, но мы с Вами знаем другое, что подлинная цель нашего фестиваля – общение детей между собой, единение в одну христианскую семью! Ну и как следствие – толчок для дальнейшего развития наших школ или появление новых… <br/> Мы не должны допустить, чтобы в атмосфере фестиваля возобладал дух соревнования, чтобы мы сами или наши дети в погоне за первым местом не переступили через жизнеутверждающие принципы христианства!</p>
+                                <p><b><strong>До встречи на фестивале!</strong></b></p>
+                            </div>
+                            <div class="hidden command-registration-fail animated slideInDown text-center">
+                                <h4 class="center">О нет! что-то пошло не так!</h4>
+                                <p style="text-align: justify;">Сервер сообщил, что регистрация команды невозможна, так как это название уже занято. Может быть Вы уже регистрировали команду с этим названием, или это сделал кто-то другой. Свяжитесь с организаторами фестиваля для уточнения подробностей, или попробуйте указать другие данные. <a class="" href="#" onclick="return false" data-target="#myCarousel" data-slide-to="0">попробуйте указать дргие данные</a></p>
+                                <a class="btn btn-default btn-lg center" href="#" onclick="return false" data-target="#myCarousel" data-slide-to="0">Начать сначала</a>
+                            </div>
+                        </div>
+                        <div style="font-size: 20px;" class="label label-warning" id="mess" ></div>
+                        <div class="modal-footer">
+                            <div id="add_group" data-dismiss="modal" class="btn btn-primary">Готово</div>
                         </div>
                     </div>
                 </div>
@@ -683,12 +751,12 @@
 <div class="modal fade normal-font" id="add-saint-modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header" >
+            <div class="modal-header" id="add-saint-modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Добавление Святого (тематики) в базу</h4>
             </div>
-            <div class="modal-body" >
-                <form>
+            <div class="modal-body" id="add-saint-modal-header">
+                <form action="">
                     <!--second row-->
                     <div class="row">
                         <div class="col-md-6">
@@ -696,7 +764,7 @@
                                 <label for="g-saint-name">Каноническое имя святого</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-arrows"></i></span>
-                                    <input id="g-saint-name" type="text" name="name" class="form-control" placeholder="Каноническое имя святого" title="Каноническое имя святого">
+                                    <input id="g-saint-name" type="text" name="dbg_name" class="form-control" placeholder="Каноническое имя святого" title="Каноническое имя святого">
                                 </div>
                             </div>
                         </div>
@@ -724,6 +792,7 @@
                         </div>
                     </div>
                     <input hidden value="submit" name="add_direct" type="text">
+                    <p>Будьте внимательны при заполнении полей, после добавления свтого, информацию о нем можно будет изменить только через модераторов сайта.</p>
                 </form>
             </div>
             <div class="modal-footer" id="add-saint-modal-footer">
@@ -756,30 +825,40 @@
 
 <!--подробная информация о святом-->
 
-<div class="modal fade">
+<div class="modal fade saint-info ">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Название модали</h4>
+                <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
+            <div class="modal-body text-center">
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Сохранить изменения</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="hidden">
+<div class="hidden temp-object-container">
     <li class="placeholder-empty placeholder-style" style="text-align: center; padding: 15px;">Начните вводить в поле выше Имя святого. <br/> И в этом месте оборазятся святые, соответствующие Вашему запросу. <br/> Базу святых и праздников мы взяли с pravoslavie.ru</li>
+
     <li class="placeholder-not-found" style="text-align: center; padding: 15px;" >По вашему запросу ничего не найдено, <br/> Вы можете добавить святого в нашу базу<br/>
         <button onclick="return false;" class="btn btn-success" data-toggle="modal" data-target="#add-saint-modal">Добавить святого</button>
     </li>
+
+    <li class="placeholder-add-success" style="text-align: center; padding: 15px;" >Святой успешно добавлен<br/> Вы можете продолжить регистрацию<br/>
+        <a class="btn btn-primary right type-them" href="#myCarousel" data-slide="next">Далее</a>
+    </li>
+
+    <li class="placeholder-add-error" style="text-align: center; padding: 15px;" >Ошибка при добавлении, <br/> Или такой святой уже существует<br/>
+        <button onclick="return false;" class="btn btn-success" data-toggle="modal" data-target="#add-saint-modal">Добавить святого</button>
+    </li>
+
 </div>
+
 
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&load=package.full" type="text/javascript"></script>
 
@@ -830,7 +909,7 @@
 
                     }, {
                         iconLayout: 'default#image',
-                        iconImageHref: 'http://fest-dss.kz/wp-content/themes/fest/public/img/placemark-c.png',
+                        iconImageHref: '/wp-content/themes/fest/public/img/placemark-c.png',
                         iconImageSize: [40, 80],
                         iconImageOffset: [-20, -80],
                         draggable: true
@@ -843,6 +922,14 @@
                 map.geoObjects.add(mainPlacemark);
 
                 mainPlacemark.events.add('dragend', function () {
+                    c = mainPlacemark.geometry.getCoordinates();
+                    $('.modal-header-church').html(c[0] + ',' + c[1] + ',' + map.getZoom());
+                    $('.btn-map-modal-ok').data('geocode', c[0] + ',' +  c[1] + ',' + map.getZoom());
+                });
+
+                map.events.add('click', function (e) {
+                    var coords = e.get('coords');
+                    mainPlacemark.geometry.setCoordinates(coords);
                     c = mainPlacemark.geometry.getCoordinates();
                     $('.modal-header-church').html(c[0] + ',' + c[1] + ',' + map.getZoom());
                     $('.btn-map-modal-ok').data('geocode', c[0] + ',' +  c[1] + ',' + map.getZoom());
@@ -862,32 +949,22 @@
     });
 </script>
 
-<div id="vkapi_body">
-    <div id="vk_api_transport" style="position: absolute; top: -10000px;"><script type="text/javascript" src="https://vk.com/js/api/openapi.js" async=""></script></div>
-    <script type="text/javascript">
-        jQuery(function () {
-            window.vkAsyncInit = function () {
-                VK.init({
-                    apiId: 4296087
-                });
-                if (typeof onChangePlusVK !== 'undefined')
-                    VK.Observer.subscribe('widgets.comments.new_comment', onChangePlusVK);
-                if (typeof onChangeMinusVK !== 'undefined')
-                    VK.Observer.subscribe('widgets.comments.delete_comment', onChangeMinusVK);
-                if (!window.vkapi_vk) {
-                    window.vkapi_vk = true;
-                    jQuery(document).trigger('vkapi_vk');
-                }
-            };
+<script type="text/javascript">
+    function wp_attempt_focus(){
+        setTimeout( function(){ try{
+            d = document.getElementById('user_login');
+            d.focus();
+            d.select();
+        } catch(e){}
+        }, 200);
+    }
 
-            var el = document.createElement("script");
-            el.type = "text/javascript";
-            el.src = "https://vk.com/js/api/openapi.js";
-            el.async = true;
-            document.getElementById("vk_api_transport").appendChild(el);
-        });
-    </script>
-</div>
+    wp_attempt_focus();
+    if(typeof wpOnload=='function')wpOnload();
+</script>
+
+
+
 <footer>
     <div class="footer">
         <div class="container">
@@ -942,6 +1019,11 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/20742871" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-
+<?php wp_footer() ?>
+<style>
+    #wpadminbar{
+        display: none !important;
+    }
+</style>
 </body>
 </html>

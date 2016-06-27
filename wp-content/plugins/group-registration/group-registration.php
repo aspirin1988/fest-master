@@ -35,12 +35,12 @@ add_action( 'admin_menu','add_menu');
 reg_param();
 function add_menu()  {
     //add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
-    add_menu_page('Add user group', 'add user group', 0, REG_GR_PLUGIN_FOLDER, 'get_main', REG_GR_PLUGIN_URL . 'images/icbw-16x16.png');
+    add_menu_page('Add user group', 'Регистрация команд', 0, 'index1','get_all_group', REG_GR_PLUGIN_URL . 'images/icbw-16x16.png');
 
     //add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function )
-    add_submenu_page( REG_GR_PLUGIN_FOLDER , 'Add_group', 'Add group', 1, REG_GR_PLUGIN_FOLDER,'get_main');
-    add_submenu_page( REG_GR_PLUGIN_FOLDER , 'Add_advanced_group', 'Add advanced group', 2, 'index','get_main1');
-    add_submenu_page( REG_GR_PLUGIN_FOLDER , 'Show_all_group', 'Show all group', 3, 'index1','get_all_group');
+    add_submenu_page( REG_GR_PLUGIN_FOLDER , 'Add_group', 'Утвержденные тематики', 1, REG_GR_PLUGIN_FOLDER,'get_main');
+    //add_submenu_page( REG_GR_PLUGIN_FOLDER , 'Add_advanced_group', 'Утвержденные тематики', 2, 'index','get_main1');
+    add_submenu_page( REG_GR_PLUGIN_FOLDER , 'Show_all_group', 'Список зарегистрированных команд', 3, 'index1','get_all_group');
 }
 function reg_param()
 {
@@ -63,11 +63,11 @@ function get_all_group()
     }
 
     if (!isset($_POST['show_data'])) {
-        echo '<div class="fields_header"><div class="header" ><h1>Список разрешенных групп</h1> </div>';
+        echo '<div class="fields_header"><div class="header" ><h1>Список зарегистрированных команд</h1> </div>';
     }
     else
     {
-        echo '<div class="fields_header"><div class="header" ><h1>Данные группы</h1> </div>';
+        echo '<div class="fields_header"><div class="header" ><h1>Данные команды</h1> </div>';
     }
     $edit=false;
     if(isset($_POST['approve']))
@@ -84,7 +84,7 @@ function get_all_group()
         if ($edit) {
             echo '<div class="mes_success"><h3>Запись былы успешно отредактирована!</h3></div>';
         } else {
-            echo '<div class="mes_error"><h3>Входе операции редактирования произошла ошибка!</h3></div>';
+            echo '<div class="mes_error"><h3>В ходе операции редактирования произошла ошибка!</h3></div>';
         }
     }
 
@@ -104,16 +104,68 @@ function get_all_group()
             $sel='';
         }
 
-        $tr.='<form name="edit" method="post" action=""><tr><td>'.$value->id_group.'</td><td><input type="text" name="name" value="'.$value->name.'"></td><td><textarea type="" name="description">'.$value->description.'</textarea></td><td>'.$user->data->display_name.'</td><td><input type="checkbox" '.$sel.'"></td><td>'.$value->count.'</td><td><input type="submit" class="del" name="refusal" value="'.$value->id_group.'"><input type="submit" class="edit" name="approve" value="'.$value->id_group.'"><input type="submit" class="show" name="show_data" value="'.$value->id_group.'"></td></tr></form>';
+        $tr.='<form name="edit" method="post" action=""><tr><!--<td>'.
+            $value->id_group.'</td>--><td><p>'.
+            $value->name.'</p></td><td><p>'.
+            $value->city.'</p></td><td>'.
+            $value->name_boss.'</td><td><!--<input type="checkbox" '.
+            $sel.'">--></td><!--<td>'.
+            $value->count.'</td>--><td><!--<input type="submit" class="del" name="refusal" value="'.
+            $value->id_group.'"><input type="submit" class="edit" name="approve" value="'.
+            $value->id_group.'">--><input type="hidden" class="show" name="show_data" value="'.
+            $value->id_group.'"><button type="submit">...</button></td></tr></form>';
         if(isset($_POST['show_data'])&&$_POST['show_data']==$value->id_group)
         {
-            print_r($value);
+
+            $array_names = [
+                /*'id_group' => 'id',*/
+                'name' => 'Название',
+                'name_boss' => 'ФИО руководителя',
+                'leader_phone' => 'Телефон руководителя',
+                'leader_email' => 'e-mail руководителя',
+                'leder_contacts' => 'Доп. контакты руководителя',
+                'name_confessor' => 'ФИО духовника',
+                'san_confessor' => 'Сан духовника',
+                'confessor_phone' => 'Телефон духовника',
+                'confessor_email' => 'e-mail духовника',
+                'confessor_contacts' => 'Доп. контакты духовника',
+                'region' => 'Область',
+                'city' => 'Населенный пункт',
+                'address_parish' => 'Адрес прихода',
+                'name_parish' => 'Название прихода',
+                'number_of_persons' => 'Количество человек',
+                'age_from' => 'возраст от:',
+                'age_to' => 'Возраст до:',
+                'total_number_of_persons' => 'Общее кол-во человек',
+                'subjects' => 'Тематика',
+                'subjects_type' => 'Тип тематики',
+                /*'creator' => 'id регистратора',*/
+                'command_type' => 'Тип команды',
+                'eparhy' => 'Епархия',
+                'advanced_data' => 'Дополнительная информация',
+                'approved' => 'Одобрена',
+                'geoposition' => 'Местоположение',
+                'leader_profession' => 'Профессия рукводителя',
+                'id_group' => 'id',
+
+            ];
+
+
+            foreach($array_names as $key => $element){
+                echo '<p><span style="font-weight: bold; min-width: 200px; padding-right: 10px">'.$element.' </span>'.$value->$key.'</p>';
+            }
+            $user = get_user_by('id',$value->creator);
+
+            $href= str_replace('vk_','',$user->nickname);
+            echo '<p><span style="font-weight: bold; min-width: 200px; padding-right: 10px">регистратор </span><a target="_blank" href="https://vk.com/'.$href.'">'.$user->display_name.'</a></p>';
+
+            //print_r($value);
             exit();
         }
     }
-    $template = file_get_contents(REG_GR_PLUGIN_DIR.'/admin_gr.html');
+    $template = file_get_contents(REG_GR_PLUGIN_DIR.'/admin.html');
     $template=str_replace('{rows}',$tr,$template);
-    $template=str_replace('{download}',$download,$template);
+    /*$template=str_replace('{download}',$download,$template);*/
 
     echo  $template;
 }

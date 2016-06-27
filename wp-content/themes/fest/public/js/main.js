@@ -197,14 +197,43 @@ var jqrequest;
 var group;
 var them_all=[];
 $(document).ready(function (){
+
+    $('#set-optional').click(function () {
+        $('#g-them').val(0);
+    });
+
+    $('.type-check').click(function () {
+        var regform = $('#group_add input, #group_add textarea, #group_add select');
+        $('#table-check tbody').html('');
+        regform.each(function (key, val) {
+            val = $(val);
+            var label = $('label[for="'+ val.attr('id') +'"]');
+            //$('label[for="'+ regform.attr('id') +'"]');
+            var xval = val.val();
+            if(val.prop('nodeName') === 'SELECT'){
+                xval = $("option:selected",val).text();
+            }
+            if(xval === ''){
+                xval = '<span style="color: #ff0000;font-weight: bold;">Не указано</span>'
+            }
+            if(label.length > 0){
+                var tr = $('<tr/>',{});
+                tr.append($('<td/>').html(label.html()));
+                tr.append($('<td/>').html(xval));
+                $('#table-check tbody').append(tr);
+            }
+
+        })
+    });
+
     $('.command-carousel').on('slide.bs.carousel', function (e) {
-        console.info($(this));
+        /*console.info($(this));
         $('.command-carousel .item').removeClass('zoomIn').addClass('zoomOut');
         $(e.relatedTarget).removeClass('zoomOut').addClass('zoomIn');
         /*console.info($(e.target).addClass('zoomIn'));
         console.info($(e.delegateTarget).addClass('animated zoomOut'));*/
-        console.info(e);
-        //return false;
+        /*console.info(e);*/
+        //return false;*/
     });
 
     var plEmpty = $('.placeholder-empty');
@@ -213,21 +242,26 @@ $(document).ready(function (){
     $('.type-them').click(function(){
         var data ={};
         var select=$(this).data('type');
-        console.info(data);
+        //console.info(data);
         data['subjects_type']=1;
-        $("#del_item").remove();
-
-                $.ajax({
+        $.ajax({
                     url: "/index.php/grouprg",
                     type: "POST",
                     data: data
                 }).done(function(data1) {
                     them_all = data1;
-                    $('#them').empty();
+                    $('#g-them').html($( '<option href="#optional" data-toggle="tab" value= "0" >Выбрать произвольную</option>' ));
                     $.each(data1,function(key,val){
-                        $('#them').append( $( "<option value='"+val['id_direct']+"' >"+val['name']+"</option>" ) );
+                        $('#g-them').append( $( '<option value="' + val['id_direct'] + '" >' + val['name'] + '</option>' ));
                     });
-                    console.log(them_all);
+                   // console.log(them_all);
+                    //console.info($('#g-them'));
+                    $('#g-them').unbind('change').bind('change',function () {
+                       // console.info($(this).val());
+                        if(!Number($(this).val())){
+                            $('a[href="#optional"]').tab('show');
+                        }
+                    });
                 });
 
     });
@@ -253,23 +287,26 @@ $(document).ready(function (){
                 if(Object.keys(result).length){
                         obj.empty();
                         $.each(result, function (key, val) {
+                        console.info(val);
                         val['name'] = val['name'].toLowerCase();
                         //obj.append($('<li class="form-control" data-name="' + val['name'] + '" data-id="' + val['id_direct'] + '">' + val['name'] + '</li>'));
-                            console.info(val);
+                            //console.info(val);
                         obj.append($('<li/>',{
                             class: 'form-control'
                         })
                             .append($('<a/>',{
                                 class:'saint-name',
                                 'data-name': val['name'],
-                                'data-id': val['id'],
+                                'data-id': val['id_direct'],
+                                href:'#myCarousel',
+                                'data-slide': 'next',
                                 text: val['name']
                             })
                         )
                             .append($('<a/>',{
                                 class: 'saint-href pull-right',
                                 'data-name': val['name'],
-                                'data-id': val['id'],
+                                'data-id': val['id_direct'],
                                 'data-description': val['description'],
                                 'data-href': val['href']
                             })
@@ -289,18 +326,23 @@ $(document).ready(function (){
                         })).append($('<a/>',{
                             class: 'btn btn-success',
                             href: that.data('href'),
-                            html:'посмотреть подробнее',
+                            html:' читать подробнее',
                             target: '_blank',
                             style: 'margin: 20px;'
-                        }));
+                        }).prepend($('<i/>',{
+                            class: 'fa fa-external-link-square'
+                        })));
                         $('.saint-info').modal();
+                        return false;
                     });
                     $('#find-list .saint-name').unbind('click').click(function(){
-                        console.info($(this).data('id'));
-                        $('#subjects_name').val($(this).data('name'));
+                        //console.info($(this).data('id'));
                         $('#subjects_2').val($(this).data('id'));
+                        $('#subjects_name').val($(this).data('name'));
+                        alert($(this).data('id'));
                     });
                     //obj.addClass('visible');
+
                 }
                 else{
                     obj.html(plNotFound);
@@ -316,13 +358,52 @@ $(document).ready(function (){
 
     $('#add-saint').click(function () {
        var saintdata = $('#add-saint-modal form').serialize();
-        console.info(saintdata);
+        var obj = $('#find-list');
+        //console.info(saintdata);
         $.ajax({
             url: "/index.php/grouprg",
             type: "POST",
             data: saintdata
         }).done(function(saint_data) {
-            console.info(saint_data);
+           // console.info(saint_data);
+            if(saint_data){
+                $('#subjects_name').val(saint_data.name);
+                $('#subjects_2').val(saint_data.id_direct);
+                var sobj = $('.placeholder-add-success').clone(true);
+                sobj.append($('<button/>',{
+                    class: 'btn btn-primary saint-hr',
+                    href:'#',
+                    'data-name': saint_data['name'],
+                    'data-id': saint_data['id_direct'],
+                    'data-description': saint_data['description'],
+                    'data-href': saint_data['href'],
+                    text:'Просмотреть'
+                }));
+                obj.html(sobj);
+
+                $('#find-list .saint-hr').unbind('click').click(function () {
+                    var that = $(this);
+                    $('.saint-info .modal-title').html(that.data('name'));
+                    $('.saint-info .modal-body').html($('<div/>',{
+                        class:'text-justify',
+                        html: that.data('description')
+                    })).append($('<a/>',{
+                        class: 'btn btn-success',
+                        href: that.data('href'),
+                        html:' читать подробнее',
+                        target: '_blank',
+                        style: 'margin: 20px;'
+                    }).prepend($('<i/>',{
+                        class: 'fa fa-external-link-square'
+                    })));
+                    $('.saint-info').modal();
+                    return false;
+                });
+
+            }else{
+                obj.html($('.placeholder-add-error'));
+            }
+
         });
 
         /*$.post('/index.php/grouprg', saintdata, function(dar){
@@ -333,6 +414,30 @@ $(document).ready(function (){
 
     $(document).on('hidden.bs.modal', '.modal', function () {
         $('.modal:visible').length && $(document.body).addClass('modal-open');
+    });
+
+    $('#add_group').click(function () {
+        $("#reg-group").animate({ scrollTop: 0 }, "slow");
+        $()
+       var formData = $('form#group_add').serialize();
+        $('.command-registration-fail').addClass('hidden');
+        $('.command-registration-success').addClass('hidden');
+        $('.command-registration-preloader ').removeClass('hidden');
+        $.ajax({
+            url: "/index.php/grouprg",
+            type: "POST",
+            data: formData
+        }).done(function(itresult) {
+            console.info(itresult);
+            if(itresult.success){
+                $('.command-registration-preloader ').addClass('hidden');
+                $('.command-registration-success').removeClass('hidden');
+            }
+            else{
+                $('.command-registration-preloader ').addClass('hidden');
+                $('.command-registration-fail').removeClass('hidden');
+            }
+        });
     });
     /*$('#add_group').click(function(){
         var data={};

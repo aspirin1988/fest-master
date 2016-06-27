@@ -6,7 +6,7 @@
  *
  * @package fest
  */
-
+header("Location: /");
 get_header(); ?>
 
 	<div id="primary" class="content-area">
